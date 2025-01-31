@@ -15,7 +15,7 @@ Der Kurs dient gleichzeitig als Vorkurs für die Vorlesung `physik441`, Computer
 
 ## Literatur
 
-[*Professional C++**, Marc Gregoire, 6. Auflage 2024.](https://bonnus.ulb.uni-bonn.de/view/action/uresolver.do?operation=resolveService&package_service_id=17172162860006467&institutionId=6467&customerId=6440&VE=true) (Volltext über Login mit Uni-ID verfügbar. Bitte "Universitäts und Landesbibliothek Bonn" als Institution auf der O'Reilly Bibliotheksseite wählen)
+[*Professional C++*, Marc Gregoire, 6. Auflage 2024.](https://bonnus.ulb.uni-bonn.de/view/action/uresolver.do?operation=resolveService&package_service_id=17172162860006467&institutionId=6467&customerId=6440&VE=true) (Volltext über Login mit Uni-ID verfügbar. Bitte "Universitäts und Landesbibliothek Bonn" als Institution auf der O'Reilly Bibliotheksseite wählen)
 
 
 
