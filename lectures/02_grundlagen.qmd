@@ -596,6 +596,21 @@ int b {};
 int results {(a<b)?1:15}; // falls (a<b) ist result==1; sonst result==15
 ```
 
+## Mathematische Funktionen
+
+Mathematische Funktionen sind im Header `<cmath>` definiert. Übersicht [hier](https://en.cppreference.com/w/cpp/header/cmath). Beispiele:
+
++ `std::exp(x)` Exponentialfunktion
++ `std::log(x)` Natürlicher Logarithmus
++ `std::sin(x)` Sinus
++ `std::cos(x)` Cosinus 
++ `std::cos(x)` Cosinus 
++ `std::pow(b, x)` $b^x$
++ `std::hermite(n, x)` Hermite polynome 
+
+
+
+
 
 
 # Zeiger und Referenzen
@@ -663,6 +678,5 @@ std::print("{}\n", x); // -12
 
 + Sehr viel einfacher zu benutzen
 + Keine Dereferenzierung notwendig
-
 
 
