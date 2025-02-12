@@ -16,7 +16,8 @@ deploy-pages:
   script:
     - cd lectures && make all 
     - cd ..
-    - cd exercises && make all
+    - ls
+    - cd exercises && make 
   artifacts:
     paths:
       - public/
