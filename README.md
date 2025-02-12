@@ -13,6 +13,9 @@ Dieser Kurs bietet Ihnen einen Einstieg in die Programmierung mit C++ und legt b
 Der Dozent ist Prof. Dr. David Luitz, Theoretischer Physiker an der Universität Bonn. 
 Der Kurs dient gleichzeitig als Vorkurs für die Vorlesung `physik441`, Computerphysik.
 
+## Skript
+
+Das Vorlesungsskript finden Sie [hier](https://physics441-sose25-c-vorkurs-8d9a23.gitlab-pages.uni-bonn.de/)
 
 ## Literatur
 

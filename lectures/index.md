@@ -4,8 +4,6 @@ subtitle: "Vorlesungsfolien"
 author: "Prof. Dr. David Luitz (Universität Bonn)"
 ---
 
-# 00 Übersicht
-[Skript (html)](html/00_uebersicht.html), [Folien](revealjs/00_uebersicht.html)
 
 
 # 01 Einführung
@@ -18,7 +16,7 @@ author: "Prof. Dr. David Luitz (Universität Bonn)"
 
 [Skript (html)](html/02_grundlagen.html), [Folien](revealjs/02_grundlagen.html)
 
-[Übung](html/exercises/02_datatypes.html)
+<!-- [Übung](html/exercises/02_datatypes.html) -->
 
 
 # 03 Kontrollstrukturen
@@ -26,9 +24,9 @@ author: "Prof. Dr. David Luitz (Universität Bonn)"
 
 ## Tutoren
 
-Justin Schmitz [<s6jtscmi@uni-bonn.de>](mailto:s6jtscmi@uni-bonn.de)
-Gabriel Remiszewski [<s6garemi@uni-bonn.de>](mailto:s6garemi@uni-bonn.de)
-Florian Taubert [<taubert@hiskp.uni-bonn.de>](mailto:taubert@hiskp.uni-bonn.de)
++ Justin Schmitz [<s6jtscmi@uni-bonn.de>](mailto:s6jtscmi@uni-bonn.de)  
++ Gabriel Remiszewski [<s6garemi@uni-bonn.de>](mailto:s6garemi@uni-bonn.de)
++ Florian Taubert [<taubert@hiskp.uni-bonn.de>](mailto:taubert@hiskp.uni-bonn.de)
 
 
 ## Literatur
