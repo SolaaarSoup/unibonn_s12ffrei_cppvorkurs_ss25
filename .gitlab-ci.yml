@@ -1,3 +1,4 @@
+
 variables:
   UBUNTU_VERSION: "latest"
   QUARTO_VERSION: "1.6.40"
