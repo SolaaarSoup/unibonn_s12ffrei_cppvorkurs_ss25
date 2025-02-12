@@ -1,0 +1,639 @@
+---
+title: "C++ Programmierkurs"
+subtitle: "Einführung"
+author: "Prof. Dr. David Luitz (Universität Bonn)"
+---
+
+# Einleitung
+
+## Programmiersprachen
+
+Unser Ziel ist es, digitale Computer im weitesten Sinne für Berechnungen zu verwenden.
+
+CPU versteht nur Maschinencode:
+
+```assembly
+   0:   55                      push   %rbp             
+   1:   48 89 e5                mov    %rsp,%rbp
+   4:   c7 45 f8 05 00 00 00    movl   $0x5,-0x8(%rbp)
+   b:   c7 45 fc 07 00 00 00    movl   $0x7,-0x4(%rbp)
+  12:   8b 55 f8                mov    -0x8(%rbp),%edx
+  15:   8b 45 fc                mov    -0x4(%rbp),%eax
+  18:   01 d0                   add    %edx,%eax
+  1a:   5d                      pop    %rbp
+  1b:   c3                      ret
+```
+
++ Sehr mühsam, fehleranfällig und unflexibel
++ Jede CPU braucht anderen Code (Register, Befehlssatz)
+
+
+## Programmiersprachen
+
+Lösung: Programmiersprache 
+
++ Beschreibung von Algorithmen und Datenstrukturen in einer **formalen** Sprache
++ Menschenlesbar
+
+Automatische **Übersetzung** in Maschinencode: [Compiler]{.alert}
+
+
+## Programmiersprachen
+
+Auswahl wichtiger Programmiersprachen [mehr auf wikipedia](https://de.wikipedia.org/wiki/Zeittafel_der_Programmiersprachen)
+
++ 1957: [Fortran]{.alert}. Erste kommerzielle höhere Programmiersprache
+```Fortran
+C     PROGRAM FOR FINDING THE LARGEST VALUE
+C    X   ATTAINED BY A SET OF NUMBERS
+      BIGA = A(1)
+      DO 20 I=2, N
+C     ARITHMETIC IF: FIRST STATEMENT (10) IF EXPR IS NEGATIVE
+C    X  SECOND STATEMENT (20) IF EXPR IS ZERO 
+C    X  THIRD STATEMENT (20) IF EXPR IS POSITIVE
+      IF (BIGA - A(I)) 10, 20, 20
+  10  BIGA = A(I)
+  20  CONTINUE
+```
+
+::: {.notes}
++ 1. Spalte: Kommentarspalte (C)
++ 1.-5. Spalte: Nummer der Anweisung (Sprungmarke!)
++ 6. Spalte: Fortsetzung: X bedeutet, dass es in der nächsten Zeile (**Lochkarte**) weitergeht
++ 7.-72. Spalte: Programmcode
++ 73.-80. Spalte wird **ignoriert**: zur Numerierung der Lochkarten!
++ `IF (BIGA - A(I))`: `<0`: erste Sprungmarke (10); `=0`: zweite Sprungmarke (20); `>0`: dritte Sprungmarke
+:::
+
+
+
+
+## Fortran
+
+![ ](images/Punched_card_program_deck.agr.jpg){width=50%  fig-align='center'}
+
+So sahen Computerprogramme früher aus.
+
+Noch bis Fortran90 (1991) festes Zeilenformat der Lochkarten
+
+::: {.notes}
++ Jede Karte ist **eine Zeile**
++ Jede Spalte ist **ein Buchstabe** 10 bit,
++ Extended Binary Coded Decimal Interchange Code EBCDIC (8 bit)
+:::
+
+
+
+## Weitere relevante Sprachen
+
++ 1958: [ALGOL](https://en.wikipedia.org/wiki/ALGOL): früher Vorläufer von C, Code-Blöcke
++ 1959: [COBOL](https://en.wikipedia.org/wiki/COBOL): verbreitet im Finanzsektor, immer noch legacy code in Benutzung
++ 1960: [LISP](https://en.wikipedia.org/wiki/Lisp_(programming_language)): Listenbasiert, Vorläufer vieler Sprachen (inkl. Python, Julia, R)
++ 1964: [BASIC](https://en.wikipedia.org/wiki/BASIC): Einfache Sprache, designed für Studenten nichtnaturwissenschaftlicher Fächer
++ 1970: [PASCAL](https://en.wikipedia.org/wiki/Pascal_(programming_language)): Strukturiertes Programmieren und Datenstrukturen, Ziel: guter Programmierstil
+
+
+
+## Die Programmiersprache C
+
++ [C](https://en.wikipedia.org/wiki/C_(programming_language)): Allgemeine Programmiersprache entwickelt in den 1970ern von Dennis Ritchie
++ Bis heute weitverbreitet:
+
+![](images/tiobe-programming-language-index.png){width=60% fig-align='center'}
+
+
+## Die Programmiersprache C
+
++ Hardwarenah, geringe Abstraktionstiefe
++ Effizienter hochperformanter Code möglich
++ Direkter Zugriff auf Speicher
++ Systemprogrammierung: Betriebssysteme (zB Linux Kernel), Treiber, Compiler, Bibliotheken...
++ Standardisierung: `ANSI C` (1989), `C99`, `C11`, `C18` (2018)
+
+
+
+## Die Programmiersprache C++
+
++ Entwickelt von Bjarne Stroustrup (AT&T) 1979-1983
++ Starker Einfluss von `Simula` (Objektorientierung) und `C`
++ Ziele:
+  - "a better C"
+  - Abstraktion von Datenstrukturen 
+  - Objektorientiertes Programmieren
+  - Generische Programmierung
++ Sehr hohe Effizienz
++ Viele Sprachmittel aber "you only pay for what you use"
+
+
+> "There are only two kinds of languages: the ones people complain about and the ones nobody uses" --- Bjarne Stroustrup 
+
+
+## C++ Standards
+
++ C++ wird sehr aktiv weiterentwickelt und hat eine große weltweite Nutzercommunity
++ Standardisierung: Genaue, verbindliche Spezifikation. Standardkonformer Code soll mit allen Compilern funktionieren.
++ `C++98`: Erste ISO version
++ `C++11`: Große Erweiterungen an der Standardbibliothek, "Modernes C++". `auto`, Lambdas, etc
++ `C++20`: Aktueller Standard. `concepts`, `modules` (Compiler?)
+
+Wir werden versuchen weitestgehend modernes `C++20` zu nutzen.
+
+
+
+## Warum C++ in der Computerphysik?
+
++ Exzellente Performance notwendig für (Quanten-) Monte-Carlo, Molekulardynamik, Lineare Algebra... 
++ Sehr gute Verfügbarkeit von Bibliotheken, einfache Nutzung von Fortran, C Bibliotheken (`gsl`, `lapack`, `blas`, `mkl`)
++ Sehr guter Kompromiss aus hardwarenähe und Nutzerfreundlichkeit
++ Exzellente Open Source Compiler (`gcc`, `llvm`)
++ Nutzerfreundliche `C++` Bibliotheken
++ Nebenläufigkeit `OpenMP`
++ Massiv parallele Programmierung `MPI`
+
+
+## Erstes C++ Programm 
+
+"Verpflichtendes" `Hello, world!`:
+
+```cpp
+#include <iostream>
+int main(void){
+  std::cout << "Hello, world!" << std::endl;
+}
+```
+
++ `#include <iostream>` lädt die Headerdatei iostream
++ `main` ist die Hauptfunktion des Hauptogramms und wird beim Start aufgerufen
++ `std::cout` ist ein Stream-Objekt, das Zeichen auf der Standardausgabe ausgibt
++ Anweisungen enden mit dem Semikolon `;`
++ `std::` bezeichnet dabei den Namensraum der Standardbibliothek
++ Kann global importiert werden:
+```cpp
+using namespace std;
+cout<<"Hello, world!" << endl;
+```
+
+
+## Kompilieren des Programms
+
+Der Quelltext des Programms wird in eine reine Textdatei `hello.cc` gespeichert und mit `g++` ([GNU Compiler Collection](https://gcc.gnu.org/)) kompiliert
+
+```bash
+> g++ -o hello hello.cc
+```
+
+Wir erhalten eine ausführbare Datei `hello`:
+
+```bash
+> ls -lh
+-rw-r--r-- 1 dluitz dluitz 85   5. Feb 14:23 hello.cc
+-rwxr-xr-x 1 dluitz dluitz 16K  5. Feb 14:30 hello
+```
+
+Jetzt können wir das Programm ausführen:
+
+```bash
+> ./hello
+Hello, world
+```
+
+ 
+
+## Hello World in C++23
+
+In `C++20` wurden Module eingeführt, in `C++23` das Modul `std`.
+Außerdem gibt es jetzt die Funktion `std::println`. Damit vereinfacht sich das Programm:
+
+```cpp
+// hello23.cc
+import std;
+int main(void){
+    std::println( "Hello, world!" );
+}
+```
+Die Unterstützung dieser neuen Features ist in [`clang`](https://clang.llvm.org/) aktuell am besten.
+
+```bash
+> clang++ --std=c++23 -stdlib=libc++ --precompile \
+    -Wno-reserved-module-identifier -o std.pcm /usr/share/libc++/v1/std.cppm
+> clang++ --std=c++23 -stdlib=libc++ -fmodule-file=std=std.pcm \
+    -o hello23 std.pcm hello23.cc
+```
+
+::: {.notes}
+**Demo** `03_std_modules`
+:::
+
+
+
+
+# Werkzeuge
+
+## Professioneller Werkzeugkasten
+
+Zur Entwicklung von C++ Programmen benötigen wir folgendes Werkzeug
+
++ **Texteditor**
++ **Versionskontrolle**
++ **Compiler und Linker**
++ Build-System
++ Programmbibliotheken (Libraries)
++ Unit Tests
++ Debugger
++ Profiler
+
+
+
+## Texteditor
+
+C++ Programmcode wird in reinen Textdateien abgelegt.
+
+```
+// hello23.cc
+import std;
+int main(void){
+    std::println( "Hello, world!" );
+}
+```
+
+Zum Erstellen benötigen wir einen **Texteditor**.
+
++ Sehr gute Programme: [neovim](https://neovim.io/), [vim](https://www.vim.org/), [GNU Emacs](https://www.gnu.org/software/emacs/)
++ Im Prinzip geht auch `nano`, `kate`, `gedit`, oder `vscode`
++ Wichtige Features:
+    - Mehrere Dateien gleichzeitig editieren
+    - Syntax Highlighting
+    - Code-Navigation (zB "*go to definition*")
+    - ...
+
+
+## (Neo)Vim
+
+
+Empfehlun: Vim. (ähnliches gilt für Emacs)
+
+Vorteile:
+
++ Auf jedem Unix-System (Großrechner!) verfügbar 
++ Funktioniert in jedem Terminal (insbesondere via SSH)
++ Seit Jahrzehnten optimiertes Tastaturinterface (so gut, dass sogar vscode es kopiert)
+    - Einstieg: `vimtutor`
+    - Beenden mit `:q`
+    - Modales editieren: `<ESC>` wechselt in den Normalmodus, `<i>` in den Einfügemodus
+    - Cursor bewegen im Normalmodus mit `<j>`, `<k>`, `<h>`, `<l>`
+    - Tip: Legen Sie `<ESC>` auf `<Caps Lock>`
+
+
+
+
+## Versionskontrolle
+
+Arbeit am Code ist ein Prozess, manche Entscheidungen stellen sich später als falsch heraus, Fehler passieren.
+
+Deshalb ist **Versionskontrolle generell verpflichtend**.
+
++ **Bitte nicht**: `hello1.cc`, `hello2.cc`, `hello-final.cc`, `hello-final-corrected.cc`, `hello-final-corrected__NEW.cc` ...
++ Seit etwa 20 Jahren ist `git` der *de facto* Standard für Versionskontrolle
+    - kompakt, schnell, kryptographisch sicher
+    - verteilt, einfaches Teilen und Kollaboration
++ Alternativen wurden verdrängt (`mercurial`, `GNU bazaar`, `svn`, ...)
++ Dringende Empfehlung: Benutzen Sie `git` für Ihre Projekte (Programmcode, Latex-code, Webseiten, Markdown...)
+
+
+## Git
+
+Grundlegender Workflow:
+
+Initialisieren eines `git` Repository:
+```bash
+> cd 01_hello/
+> git init
+```
+
+`git` überwacht nur Dateien, die explizit dafür markiert wurden. Das geschieht mit `git add`:
+
+```bash
+> tree
+.
+├── hello
+└── hello.cc
+> git add hello.cc 
+> git status
+Auf Branch main
+
+Noch keine Commits
+
+Zum Commit vorgemerkte Änderungen:
+  (benutzen Sie "git rm --cached <Datei>..." zum Entfernen aus der Staging-Area)
+        neue Datei:     hello.cc
+
+Unversionierte Dateien:
+  (benutzen Sie "git add <Datei>...", um die Änderungen zum Commit vorzumerken)
+        hello
+```
+
+## Git
+
+Eine neue Version wir mit `git commit` erstellt:
+```bash
+> git commit -a -m "erste version"
+[main (Root-Commit) e07afa3] erste version
+ 1 file changed, 4 insertions(+)
+ create mode 100644 hello.cc
+```
+
+Sie können nun Ihre Versionsgeschichte auflisten lassen:
+
+```bash
+> git log
+commit e07afa368b1963d134a2aa6b24ffbd76da03da91 (HEAD -> main)
+Author: David J. Luitz <david.luitz@uni-bonn.de>
+Date:   Sat Feb 8 20:46:58 2025 +0100
+
+    erste version
+```
+
+Eine vorherige Version rufen Sie mit dem commit hash auf
+
+```bash
+> git checkout e07afa3
+```
+
+Grundregel: Nutzen Sie `git commit` möglichst häufig!
+
+
+## Gitlab
+
+Sinnvoll: Synchronisation des lokalen git Repository mit einem `git` Dienst wie [gitlab.uni-bonn.de](https://gitlab.uni-bonn.de) oder <https://github.com>.
+
++ Sehr einfache Zusammenarbeit mit anderen (Teilen des Repository, Pull-Requests)
++ Zentrale Anlaufstelle zum Verteilen von Source-Code auf andere Rechner
++ Backup!
++ Automatisierte builds/unit-tests etc mit CI/CD 
++ Konto auf <https://gitlab.uni-bonn.de> anlegen: Login mit Uni-ID
++ Hinterlegen Ihres SSH-Schlüssels 
+
+```bash
+> git clone git@gitlab.uni-bonn.de:grp_teaching-public/physics441-sose25-c-vorkurs.git
+> git pull  # Updates herunterladen und in die lokale Kopie integrieren 
+> git push  # Lokale Änderungen hochladen (falls erlaubt)
+```
+
+
+## Compiler und Linker
+
+Der Quellcode wird mit einem Compiler in ein ausführbares Programm übersetzt. Freie Programme: `g++` ([GNU Compiler Collection](https://gcc.gnu.org/)), `clang`  ([Clang](https://clang.llvm.org/))
+
+Aufruf
+```bash
+> g++ --std=c++23 -o hello hello.cc
+> clang++ --std=c++23 -o hello hello.cc
+```
+
++ Automatische Optimierung: `-O3`
++ Linken mit Programmbibliotheken: `-lgsl` (ruft intern `ld` auf)
+
+
+## Build-System
+
+Das korrekte Aufrufen des Compilers ist mühsam. Nur Programmteile die von geänderten Dateien abhängen müssen neu kompiliert werden!
+
++ Build-Systeme automatisieren diese Schritte
++ [GNU Make](https://www.gnu.org/software/make/) beschreibt notwendige Schritte und Abhängigkeiten in einem `Makefile`
++ [CMake](https://cmake.org/) generiert automatisch das `Makefile` aus `CMakeLists.txt`
+
+```cmake
+# CMakeLists.txt
+cmake_minimum_required(VERSION 3.20)
+set(CMAKE_CXX_COMPILER "clang++" CACHE STRING "C++ compiler" FORCE) 
+set(CMAKE_CXX_FLAGS "-stdlib=libc++")
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+set(CMAKE_CXX_STANDARD 23)
+
+project(Basics)
+add_executable(basic basic.cc)
+add_executable(basic20 basic20.cc)
+```
+
+## Build-System
+
+
++ Out-of-Source build: `CMakeLists.txt` liegt im Verzeichnis mit dem Quelltext.
++ Kompiliert wird außerhalb dieses Verzeichnisses, zB in `build/`
+
+```bash
+> tree
+.
+├── build
+└── src
+    ├── CMakeLists.txt
+    └── hello.cc
+> cd build
+> cmake ../src/
+[....]
+> make
+[ 50%] Building CXX object CMakeFiles/hello.dir/hello.cc.o
+[100%] Linking CXX executable hello
+[100%] Built target hello
+> ./hello
+Hello, World!
+```
+
++ Komplexe Abhängigkeiten werden einfach in `CMakeLists.txt` abgebildet. 
++ Wir müssen dann nur noch `make` aufrufen.
+
+## Makefiles
+
++ Für sehr kleine Projekte (unsere Democodes) ist `cmake` overkill
++ Einfacher: Makefile direkt von Hand schreiben und in-source build
++ Beispiel: Makefile, das alle `*.cc` Dateien kompiliert
+
+```make
+src=$(wildcard *.cc)
+targets=$(basename ${src})
+
+all: ${targets}
+
+%: %.cc
+	g++ --std=c++23 -o $@ $<
+```
+
++ Struktur: Regeln (`all:`), nach dem Doppelpunkt folgen ggf. Abhängigkeiten
++ Aufruf mit `make`
+
+::: {.notes}
+Demo: `code/06_numeric_limits
+:::
+
+
+
+## Programmbibliotheken
+
+Häufige Problemstellungen wurden oft schon von anderen gelöst.
+**Nicht das Rad neu erfinden!**
+
++ `C` Bibliotheken: Headerdatei definiert interface, `.so`-Datei enthält kompilierten Code. Beispiel: `libgsl.so`, linken mit `g++ -lgsl ...`
++ CMake: `target_link_libraries()`, `link_directories()`
++ `C++` "Header-only" Bibliotheken
++ CMake: `include_directories()` setzen
++ Für uns wichtige Bibliotheken:
+    - [C++ Standardbibliothek](https://en.cppreference.com/)
+    - [highfive](https://github.com/highfive-devs/highfive) Bibliothek für binäres wissenschaftliche Datenformat HDF5
+    - [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) Bibliothek für lineare Algebra
+
+# C++: elementare Syntax
+
+## Präprozessor-Direktiven
+
++ Traditionell beginnen C++-Programme mit der Einbindung von Header-Dateien:
+```cpp
+#include <iostream>
+#include <vector>
+```
+
++ Mit `#` beginnenden Zeilen werden vor dem Compilerlauf durch einen **Präprozessor** bearbeitet
++ `#include <iostream>`: Ersetze diese Zeile durch den Inhalt der Header-Datei `iostream` 
++ Kann in `C++23` durch `import std;` ersetzt werden 
+
+## Präprozessor: Include Guards
+
++ `#define MEIN_MAKRO`: Definiere `MEIN_MAKRO`
+
+```cpp
+#ifdef MEIN_MAKRO
+// wird gelöscht, falls MEIN_MAKRO nicht defined wurde
+#endif
+```
+
++ Oft genutzt, um sicherzustellen, dass ein Header nur einmal geladen wird. **One definition rule (ODR)**:
+```cpp
+#ifndef MEIN_HEADER_H
+#define MEIN_HEADER_H
+// Inhalt der Headerdatei
+#endif
+```
+
++ Heute einfacher durch
+```cpp
+#pragma once
+// Nicht im Standard, wird aber von allen compilern unterstützt
+```
+
+
+## Syntax
+
++ Anweisungen enden mit dem Semikolon `;`
++ Quelltext am besten nur in ASCII schreiben. 
++ Andere Codierungen (UTF-8) werden aber je nach Compiler unterstützt.
++ Codeblöcke werden durch `{` und `}` begrenzt.
++ Es gibt kein festes Zeilenformat
+
+```{.cpp .code-overflow-wrap}
+import std;int main(void){std::vector<double> v(3);std::print("{}",v);std::println(
+    "{}",std::tuple<int,double,char>(1,2.0,'c'));} // gültiges C++
+```
+
+Keine gute Idee! Deshalb: 
+
+- Code vernünftig formatieren
+- Neue Zeile nach Semikolon
+- Einrücken innerhalb von Codeblöcken
+
+::: {.notes}
+
+DEMO: `03_std_modules/hello23-mess.cc`
+
+:::
+
+
+## Kommentare
+
++ Komplexe Konstrukte können von anderen (future you) nur schwer verstanden werden.
++ Sinnvolle Kommentare helfen 
++ Alles was nach `//` bis zum Zeilenende kommt, wird vom Compiler ignoriert.
++ Längere Kommentare werden von `/*` ... und `*/` begrenzt
+
+```cpp
+// ein kurzer Kommentar 
+
+/*
+ein
+sehr
+viel
+längerer 
+Kommentar 
+*/
+```
+
++ Nützlich für automatisch erzeugte Dokumentation zB mit [doxygen](https://doxygen.nl/index.html)
+
+
+
+## Hauptfunktion
+
++ Jedes lauffähige `C++` Programm enthält die Funktion `main`
+``` cpp
+int main(void){
+    // dieser Code läuft bei der Ausführung
+}
+```
++ `{` und `}` markieren Beginn und Ende der Funktion
++ die Signatur (genaueres Später) kann auch lauten
+``` cpp
+// code/04_main_function/src/main-demo.cc
+#include <print>
+int main(int argc, char * argv[]){
+  std::print("Das Programm wurde mit {} Parametern aufgerufen.\n", argc);
+  for(int i {0}; i<argc; i++){
+    std::print("Parameter {}: {}\n", i, argv[i]);
+  }
+}
+
+```
++ Ausführung mit Parametern:
+```bash
+> maindemo par1 par2 
+```
+
+## Dateien
+
++ Größere Projekte teilt man zur besseren Übersicht in mehrere Dateien auf.
++ `.cc`, `.cpp`, `.cxx`: kompilierbare C++ Quelltextdateien 
++ `.h`, `.hpp`: Header-Dateien (nicht selbst kompilierbar)
++ `.cppm`: `C++20` Module
+
+```bash
+dluitz@X1C [10_header_file_example]> ls
+hauptprogramm  hauptprogramm.cc  Makefile  myheader.h
+```
+
+```cpp
+#include "myheader.h" //  hauptprogramm.cc
+int main(void){
+    std::print("Header eingefügt!\n");
+}
+```
+```cpp
+#ifndef MY_HEADER_H  // myheader.h
+#define MY_HEADER_H
+#include <print>
+#include <iostream>
+#endif
+```
+
+::: {.notes}
+Demo: `code/10_header_file_example/
+:::
+
+## Don't panic
+
+> Don't panic! All will become clear in time.
+> 
+> Bjarne Stroustrup (*The C++ programming language*)
+
++ C++ hat extrem viele Features. Man muss nicht alle beherrschen.
++ Wir sind hier, um uns einen Überblick zu verschaffen.
+
+
+
+

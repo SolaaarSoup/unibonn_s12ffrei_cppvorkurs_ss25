@@ -1,0 +1,21 @@
+/*-- scss:defaults --*/
+
+$alert-color: #bb2244;
+$presentation-font-size-root: 30px;
+ 
+
+/*-- scss:rules --*/
+
+
+.reveal .slide-logo {
+  height: 0.9*71px !important;
+  width: 0.9*183px !important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
+
+
+.reveal .alert {
+  color: $alert-color;
+  font-weight: bold;
+}

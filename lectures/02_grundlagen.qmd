@@ -1,0 +1,668 @@
+---
+title: "C++ Programmierkurs"
+subtitle: "Grundlagen"
+author: "Prof. Dr. David Luitz (Universität Bonn)"
+---
+
+# Variable 
+
+
+
+## Variable
+
++ C++ ist eine stark typisierte Sprache. Jede Variable hat einen festgelegten Typ
++ Variable müssen deklariert werden:
+```cpp
+int index; // legt eine Variable vom Typ int (ganze Zahlen) an 
+double x; // legt eine Variable vom Typ double (Fließkommazahl) an
+```
++ Variable sollten **immer direkt initialisiert** werden:
+```cpp
+int index {0};
+// index hat jetzt den Wert 0
+double x {3.141592};
+// x hat jetzt den Wert 3.141592
+```
++ Später kann ein neuer Wert zugewiesen werden
+```cpp
+int index {0};
+index=7;  // ok
+y=2.7; // Fehler, y wurde nicht deklariert
+```
++ Namen müssen mit einem Buchstaben beginnen
+
+## Gültigkeitsbereich
+
++ Ein Name ist immer nur innerhalb seines Blocks gültig.
++ Ein Block wird durch `{` und `}` begrenzt.
++ Das gilt auch für Klassen und Funktionen
+```cpp
+{
+    int a {5};
+}
+a=2; // Fehler: a nicht definiert
+```
+
++ Lokale Namen können globale ausblenden
+```cpp
+int a {5};
+{
+    int a {0};
+    // hier ist a==0
+}
+// hier ist a==5
+```
+
+::: {.notes}
+Demo: `code/05_variable_scope`
+:::
+
+
+## Datentypen
+
++ Jede Variable hat einen festen Datentyp.
++ Legt fest 
+    - in welcher Form sie im Speicher abgelegt wird
+    - welcher Wertebereich möglich ist
+    - welche Operationen erlaubt sind
++ Typsicherheit verhindert einige Bugs!
+
++ Typ wird vor dem Namen der Variablen angegeben:
+```cpp
+int a; // Variable a ist eine ganze Zahl vom Typ int
+float x; // Fließkommazahl
+double x; // Fließkommazahl mit doppelter Präzision
+```
+
+## Boolscher Datentyp
+
++ Der wohl einfachste Datentyp trägt nur ein bit an Information:
+`bool` enthält einen Wahrheitswert: `true` oder `false`
+
+```cpp
+bool y {true};
+bool n {false};
+bool x {1<2}; // true
+bool a {0}; //false
+bool b {1}; //true
+bool c {2}; //Error: narrowing!
+```
++ Meist mit mehr als ein Byte implementiert (einzelne Bits sind nicht adressierbar) 
+
+## Binärdarstellung
+
++ Speicher (RAM) und CPU Register sind ein Feld von **Bits**
++ Alle Daten (und der Code selbst) müssen als Folge von Bits vorliegen
++ Für natürliche Zahlen ist das die übliche Binärdarstellung:
+    $$ 011011_2 = 1+2+8+16 = 27_{10} $$
++ Je nachdem, wieviele Bits verwendet werden, ist der Wertebereich beschränkt
++ Bitfolgen können ziemlich lang werden. Abkürzung mit [**Hexadezimaldarstellung**](https://de.wikipedia.org/wiki/Hexadezimalsystem)
+    - komprimiere 1 Nibble (4 Bits) in eine Hexadezimalziffer:  
+        $0000_2 \to 0_{16}$; $0001_2 \to 1_{16}$;  $0010_2 \to 2_{16}$;  $0011_2 \to 3_{16}$;    
+        $\dots$;  $1000_2 \to 8_{16}$;  $1001_2 \to 9_{16}$;  $1010_2 \to A_{16}$
+        $1011_2 \to B_{16}$;  $1100_2 \to C_{16}$;  $1101_2 \to D_{16}$; 
+        $1110_2 \to E_{16}$;  $1111_2 \to F_{16}$
+    - 2 Nibbles (1 Byte=8 Bits): 2 Hexadezimalziffern
+        $11000010_2 = C2_{16}$
+
+
+
+## Natürliche Zahlen
+
++ Natürliche Zahlen sind am einfachsten darzustellen:   
+`00011011` kodiert Zahl 27 in einem Byte
+
+Typ                  |  Länge        |  Wertebereich
+---------------------|---------------|---------------
+`unsigned char`      | min 1 Byte    |   0...255
+`unsigned short`     | min 2 Bytes   |   0...65535
+`unsigned int`       | min 2 Bytes   |   0...65535
+`unsigned long`      | min 4 Bytes   |   0...4294967295
+`unsigned long long` | min 8 Bytes   |   0...18446744073709551615
+`uint16_t`           | exakt 2 Bytes |   0...65535
+`uint32_t`           | exakt 4 Bytes |   0...4294967295
+`uint64_t`           | exakt 8 Bytes |   0...18446744073709551615
+
+
+## Natürliche Zahlen: Limits
+
++ Informationen über Datentypen: `<limits>`
+```cpp
+#include <limits>
+std::numeric_limits<uint32_t>::max(); // 4294967295
+```
++ Wichtig, da die Länge der `unsigned` Datentypen von der Implementierung abhängen.
++ Was passiert, wenn man über das Limit geht? **Überlauf!**
+```cpp
+uint32_t a {std::numeric_limits<uint32_t>::max()}; // a=4294967295
+a = a+1; // a=0 !!!
+```
++ Kann schwere Bugs hervorrufen! Im Kopf behalten.
++ `unsigend` Datentypen für alle Index Operationen benutzen!
+```cpp
+std::vector<unsigned int> a {19,5,3};
+uint32_t index {1};
+a[index]; // ok
+int32_t bad_index {1};
+a[bad_index]; // gefährlich!
+```
+
+## Initialisierung
+
++ Variable sollten immer bei Deklaration definiert werden!
++ Mehrere Möglichkeiten:
+```cpp
+uint32_t a {0}; // uniform initilzation
+uint32_t a=0; //
+uint32_t a{}; // a=0
+```
++ `C++11` führte `uniform initialization` für eine einheitliche Syntax ein.
+    - `uint32_t a {0};`
+    - funktioniert auch für Klassen, Container etc.
+    - strengere Regeln für Typkonversion:
+    ```cpp
+    uint32_t a=0.1; // kompiliert: a=0!
+    uint32_t a {0.1}; // Fehler!
+    ```
+
+
+## Ganze Zahlen
+
+Kodierung negativer und positiver Zahlen: Zweierkomplement:
++ $N$ bits $b_{N-1}b_{N-2}\dots b_1 b_0$ stellen folgende Zahl dar
+$$ -b_{N-1} 2^{N-1} + \sum_{j=0}^{N-2} b_j 2^j$$ 
+ Beispiel $N=3$:
+
+:::: {.columns}
+:::{.column width=50%}
+binär  |  ganze Zahl
+-------|------------
+000    | 0
+001    | 1
+010    | 2
+011    | 3
+:::
+:::{.column width=50%}
+binär  |  ganze Zahl
+-------|------------
+100    | -4 
+101    | -3
+110    | -2 
+111    | -1
+:::
+::::
+
+
+## Datentypen für ganze Zahlen
+
+Da ganze Zahlen inklusive Vorzeichen gespeichert werden, ist der maximale Wert nur halb so groß wie bei `unsigned` Typen.
+
+Typ                  |  Länge  (Bytes)       |  Wertebereich
+---------------------|---------------|---------------
+`short` | 2 | -32768...32767 
+`int` | 4 | -2147483648...2147483647 
+ `long` | 8 | -9223372036854775808...9223372036854775807 
+ `long long` | 8 | -9223372036854775808...9223372036854775807 
+ `int16_t` | 2 | -32768...32767 
+ `int32_t` | 4 | -2147483648...2147483647 
+ `int64_t` | 8 | -9223372036854775808...9223372036854775807 
+
+## Typumwandlung
+
+Variable verschiedenen Typs sind **inkompatibel**
+```cpp
+int64_t a {1};
+uint64_t ua {a}; // Compilerwarnung. a könnte negativ sein!
+```
+Manchmal trotzdem notwendig. Wenn wir wissen, was wir tun:
+
+```cpp
+int64_t a {1};
+int16_t short_a {static_cast<int16_t>(a)};
+```
+
++ `static_cast<T>` nur mit Bedacht benutzen!
++ Nötig, wenn externer Code (library) zB nur `int` Argumente nimmt, wir intern aber `unsigned` als Index-Typ nutzen
+
+
+## Fließkommazahlen
+
+Reelle Zahlen werden als **Fließkommazahlen** (floating point) dargestellt. 
+
+![](assets/ieee-floating-point64bit.png)
+
+
+$$ \mathrm{sign} \left(\sum_{n=0}^{p-1} b_n 2^{-n} \right) 2^{e-1023} $$
+
++ Standardisiert nach [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754)
++ $b_n$ sind die bits der Mantisse
++ $e$ ist der verschobene Exponent
+
+## Fließkomma Datentypen
+
++ `float`: 32 bits. (23+1+8), max: $3.40\cdot 10^{38}$
++ `double`: 64 bits. (52+1+11), max: $1.80\cdot 10^{308}$
++ $\infty$: `std::limits<double>::infinity`
++ Fließkommazahlen kann man **nicht** sinnvoll auf Gleichheit testen!
+```cpp
+double x {1.2152};
+float y {1.2152};
+
+bool eq {x==y}; // Keine gute Idee! false
+bool close {std::abs(x-y)<0.000001}; // Besser true
+```
++ Immer mit Toleranz vergleichen! `std::abs(x-y)<tolerance`
+
+
+## Fließkommazahlen
+
++ Achtung: Fließkommazahlen sind sehr ungleich auf der reellen Achse verteilt
+
+![](assets/floating-point-numbers.png)
+
+
+## Wissenschaftliches Rechnen
+
++ Beim wissenschaftlichen Rechnen kommt es auf Präzision an
++ `double` als Standard verwenden
++ In begründeten Ausnahmefällen: `float` nur nach genauer Analyse 
++ Am besten Ergebnisse der Rechnung mit `float` und `double` vergleichen
++ Im Zweifel: `double`
++ Für sehr hohe Präzisionsanforderungen: höhere Präzision, zB mit [MPFR](https://www.mpfr.org/) 
++ `long double` ist `128 bit` (GCC: `-mlong-double-128`, low level)
+
+## void
+
++ `void`: "Leerer" Datentyp
++ Darf nicht für Variable verwendet werden
+```cpp
+void a; // illegal
+```
++ Notwendig für 
+    - Funktionen ohne Rückgabewert
+    - Funktionen ohne Parameter (besser `()` statt `(void)`)
+    - Zeiger auf beliebige Objekte
+
+
+## Komplexe Zahlen
+
++ Komplexe Zahlen werden durch Paare von reellen Zahlen dargestellt
++ In `C++` durch ein Template dargestellt, Typ kann zur Compilezeit beliebig gewählt werden.
+```cpp
+#include <complex>
+std::complex<float> c{0.0, 1.0}; // imaginäre Einheit i
+std::complex<double> z{1.0, 1.0}; // 1 + i
+```
++ mit `std::complex<T>` [(docs)](https://en.cppreference.com/w/cpp/numeric/complex) kann man 'normal' rechnen:
+```cpp
+std::complex<double> z{1.0,1.0};
+std::complex<double> z2{2.0,3.5};
+z.imag(); // 1 Imaginärteil
+z.real(); // 1 Realteil
+std::norm(z); // |z|^2 = 2
+std::abs(z); // 1.4142...
+std::conj(z); // (1,-1)
+z+z2; // (3,4.5)
+z*z2; // (-1.5,5.5)
+z/z2; // (0.338462,-0.0923077)
+```
+
+# Literale
+
+## Literale
+
++ Bereits aufgetaucht: explizite Werte im Quelltext, zB `1.0` 
++ Verschiedene Literale für verschiedene Datentypen:
++ `double`: `1.0` 
++ `float`: `1.0f` 
++ `int`: `1234` (dezimal: 1234)
++ `int`: `01234` (oktal: 664 (!!!))
++ `int`: `0x42af` (hexadezimal: 17071)
++ `int`: `0b1101101` (binär: 109)
+
++ Integer Literale können vom Typ `int`, `long` oder `long long` sein.
+
+## Integer-Literale
+
++ Spezielle Datentypen können mit Suffixen erzwungen werden:
++ Suffix `U` for `unsigned`: `0xffaa12U`
++ Suffix `L` for `long`: `0xffaa12U`
++ Suffix `UL` for `unsigned long`: `0xffaa12UL`
++ Suffix `ULL` for `unsigned long long`: `0xffaa12ULL`
+
+**Demo**: `code/12_literals`
+
+## Fließkomma-Literale
+
++ Ohne Suffix: `double`
++ Suffix `f` für `float` Literale
++ Infix `e` trennt Mantisse und Exponent (Basis 10):
++ `1.234e17` ist die Zahl $1.234\cdot 10^{17}$ als Typ `double`
++ `1.234e17f` ist die Zahl $1.234\cdot 10^{17}$ als Typ `float`
++ **Komplexe Zahlen:**
+```cpp
+using namespace std::complex_literals; // macht das Literal "i" verfügbar
+std::complex<double> z {1.0 + 4.3i}; // (1.0, 4.3)
+```
+
+
+## Zeichen-Literale
+
++ `char` (1 Byte) kann ein Zeichen enthalten (127 bit ASCII)
+    - `char c {'a'};` 
+    - `char` Literale sind einzelne Zeichen in einfachen Anführungsstrichen `'x'`
++ Sonderzeichen (Auswahl)
+    - `'\n'`: neue Zeile
+    - `'\b'`: Rücktaste 
+    - `'\t'`: Tabulator
+    - `'\\'`: Backslash 
+    
+
+## Strings
+
++ Zeichenketten: in `C`: `char []`, Literale: `"abcd"` vermeiden!
+    - `char cstr[6] {"hallo"}` **Achtung!** C-stings sind durch '\0' terminiert, ein Zeichen extra!
++ In C++: `std::string`
+```cpp
+std::string cxx_string {"das ist ein C-String Literal\n"}; // implizite Umwandlung
+std::string cxx_string_raw {R"(Das ist ein 
+C++ RAW String Literal. 
+Sonderzeichen wie "\" werden direkt übernommen.)"};
+```
++ Raw String Literale: Begrenzt durch `R"(` und `")`.
++ Echte `std::string` Literale:
+```cpp
+using namespace std::literals::string_literals;
+std::string str2 {"Ein echter C++ std::string! Äußerst gut!"s};
+```
+
+## Strings: Operationen
+
++ Strings kann man zusammenfügen mit `+` 
+```cpp
+std::string s1 {"Hallo "};
+std::string s2 {"Welt."};
+s1 + s2; // Hallo Welt.
+```
++ `std::format` konvertiert in String (funktioniert wie `std::print`)
+```cpp
+uint64_t i {7};
+double x {1.2315};
+std::string s {std::format("i={}, x={}", i, x)};
+std::println("{}", s); // i=7, x=1.2315
+```
++ Substrings: `substr(pos, count)` gibt `count` Zeichen ab `pos` zurück
+```cpp
+std::string s {"Hallo Welt"};
+std::string s.substr(6,4);
+std::println("{}",s2); // Welt
+```
++ Achtung mit Umlauten! `ä` belegt **2 Bytes** (ausprobieren!)
+
+
+# Konstanten
+
+## Konstanten
+
+Ist eine Variable fest, sollte man Sie mit `const` konstant deklarieren
+
++ Compiler kann sich darauf verlassen
++ Fehlermeldung wenn Nutzer die Variable ändert
++ Optimierung: Berechnungen zur Compilezeit!
++ Globale Konstanten:
+```cpp
+const double pi {3.141592};
+int main(){
+    std::print("{}", pi);
+}
+```
++ Berechnungen zur Initialisierung erlaubt
+```cpp
+const double pi_half {pi/2.};
+```
++ Bitte **niemals** über Präprozessor definieren: `#define PI 3.141592` ist **verboten**
+
+## Mathematische Konstanten
+
+Mathematische Konstanten sind im Header `<numbers>` definiert.
+
++ Zwei Versionen: 
+    - `std::numbers::pi_v<T>` 
+    - `std::numbers::pi` = `std::numbers::pi_v<double>` 
++ `pi`: $\pi$
++ `e`: $\pi$
++ `ln2`: $\ln{2}$
++ `sqrt2`: $\sqrt{2}$
++ `sqrt3`: $\sqrt{3}$
+
+```cpp
+#include <numbers>
+int main(){
+    const float eulers_constant {std::numbers::e_v<float>};
+}
+```
+
+
+# Operatoren
+
+## Arithmetische Operationen 1
+
+Sehr viele Operationen sind für numerische Typen eingebaut
+
++ `x=y`: setze `x` auf den Wert von `y`
++ `x++`: gib `x` zurück und setze dann `x` auf `x+1`
++ `++x`: setze `x` auf `x+1` und gib dann `x` zurück
++ Gleiches für `x--`, `--x`
++ `x+y`: gib die Summe von `x` und `y` zurück
++ `x-y`: gib die Differenz von `x` und `y` zurück
++ `x*y`: gib das Produkt von `x` und `y` zurück
++ `x/y`: gib den Quotienten von `x` und `y` zurück
+```cpp
+int x {3};
+int y {x++}; // y= 3, x=4
+int z {++x}; // z= 5, x=5
+x=y+z;
+```
+
+
+## Arithmetische Operationen 2
+
+Es gibt praktische Kurzformen:
+
++ `x+=y`: identisch mit `x = x+y`
++ `x-=y`: identisch mit `x = x-y`
++ `x*=y`: identisch mit `x = x*y`
++ `x/=y`: identisch mit `x = x/y`
+
+Präzedenzregeln: "Punkt vor Strich", im Zweifel Klammern setzen.
+
+
+## Ganzzahldivision
+
+Division ganzer Zahlen ohne Rest:
+
++ `a/b`: gibt for Integer-Typen den ganzzahligen Anteil des Quotienten zurück
++ `a%b`: Rest, Modulo Operation
+```cpp
+int a=17;
+int b=2;
+int result {a/b};
+int rest {a%b};
+std::println("a/b: {}, a%b: {}", result, rest); // 8, 1
+```
++ Division inkl. Bruchteil:
+```cpp
+static_cast<double>(a)/b; // 8.5
+static_cast<double>(a/b); // 8.0 ACHTUNG!!!
+```
+
+Demo: `code/14_operators/integer_div.cc`
+    
+
+
+## Logische Operationen
+
+Sehr häufig benötigt man Aussagelogik. Wahrheitswerte werden in Variablen vom Typ `bool` gespeichert
+
++ `a && b` logisches und
++ `a || b` logisches inklusives oder (`true` für `10`, `01`, `11`)
++ `!a` Verneinung
++ `a!=b` logisches xor (exklusives oder)
+
+```cpp
+bool a {true};
+bool b {false};
+std::println("a and b: {}", a && b)
+```
+
+Demo: `code/14_operators/logical_operations.cc`
+
+
+## Bitweise Operationen
+
+Interpretiere `int` als Folge von bits: Logische Operationen zwischen zwei `int`s bit-für-bit:
+
++ `a & b` identisch mit `a and b`
++ `a | b` identisch mit `a or b`
++ `a ^ b` identisch mit `a xor b` 
+
+```cpp
+int a {0b11001};
+int b {0b00111};
+a&b; //0b00001
+a|b; //0b11111
+a^b; //0b11110
+```
+
+
+Demo: `code/14_operators/logical_operations.cc`
+
+## Bitshift Operationen
+
+Für den Prozessor ist es sehr billig, ein Bitmuster zu verschieben
+
++ `a<<4`: gib `a` verschoben nach links um 4 bits zurück 
++ `a>>4`: gib `a` verschoben nach rechts um 4 bits zurück
++ `a<<1`: verschiebe um 1 bit: **Multiplikation mit 2**
++ `a>>1`: verschiebe um 1 bit: **Ganzzahldivision durch 2**
+
+```cpp
+int zwei_hoch_10 {1<<10}; // 1024
+```
+
+
+## Vergleichsoperationen
+
+Vergleich zweier Variablen `x` und `y` liefert einen Wahrheitswert `bool`
+
++ `10 < 15`: `true`
++ `12 > 20`: `false`
++ `10 == 11`: `false`
++ `10 == 10`: `true`
++ `10 != 10`: `false`
++ `'a'=='b'`: `false`
++ `10 <= 10`: `true`
++ `10 >= 10`: `true`
+
+
+## Dreiwegevergleich mit `<=>`
+
+Statt Einzelfälle zu testen, kann man mit dem "Spaceship-Operator" `<=>` 
+herausfinden, ob eine Variable `x` größer, kleiner oder gleich `y` ist:
+
+```cpp
+int x {3};
+int y {5};
+std::strong_ordering comp {x<=>y};
+
+std::println("{}", comp<0); // true
+std::println("{}", comp>0); // false
+std::println("{}", comp==0); // false
+```
+
++ `comp` "weiß" jetzt, wie sich `x` und `y` zueinander verhalten
+
+## Ternärer Operator
+
+  Etwas kryptisch aber kompakt ist der ternäre Operator   
+  `bedingung?falls_true:falls_false`
+
++ `(a<b)?17:10`: gib 17 zurück, falls `a<b`, sonst gib 10 zurück
+
+```cpp
+int a {};
+int b {};
+// ... do something with a, b
+int results {(a<b)?1:15}; // falls (a<b) ist result==1; sonst result==15
+```
+
+
+
+# Zeiger und Referenzen
+
+## Speicheradressen
+
+
+:::: columns
+::: {.column width=50%}
+![](assets/Pointers.svg){width=80%}
+:::
+::: {.column width=50%}
+
++ Den Arbeitsspeicher kann man sich als lineare Anordnung von Bytes vorstellen.
++ Jede Variable, hat feste Adresse 
++ `int b;` Variable vom Typ `int` 
++ `b` hat die Adresse `1008`
++ `int * a {&b};` Zeiger auf Variable `b`.
++ `a` ist selbst eine Variable mit Wert `1008` (Adresse von `b`)
++ Die Adresse von `a`, `&a` ist `0002` und ist ein Zeiger auf einen Zeiger auf `int`
+:::
+::::
+
+## Zeiger
+
++ Eine Adressvariable heißt Zeiger, sie zeigt auf eine Variable mit festem Typ
++ Zeiger auf Variable vom Typ `T` haben den Typ `T *`
++ Die Adresse einer Variablen erhalten wir mit dem Adressoperator `&`
+
+```cpp
+int x {1234}; // Variable a mit Wert 1234
+int * ptr_x {&x}; // Zeiger auf Variable vom Typ int, initialisiert mit Adresse von a
+```
+
++ Dereferenzierungsoperator `*` greift auf Inhalt der Adresse zu
+```cpp
+int y {*ptr_x}; // y=1234
+```
+
+
+## Zeigerarithmetik
+
++ Zeiger kennt den Typ `T` der referenzierten Variable und deren Größe `sizeof(T)`
++ `ptr_x + 1` erhöht die Adresse um `sizeof(T)`, "nächste Variable"
++ So funktionieren `C`-Arrays
++ Wenn die nächste Variable nicht belegt ist, ist das Ergebnis undefiniert (Bugs!!)
+```cpp
+int x {1234};
+int * ptr_x {&x};
+int a {*ptr_x}; // 1234
+int b {*(ptr_x+1)}; // 198273412124 oder segfault
+```
+
+
+## Referenzen
+
++ Zeiger sind sehr mächtig, aber auch sehr fehleranfällig
++ Meist reicht eine *Referenz*, ein *Alias* für eine Variable
+```cpp
+int x {1234};
+int & y {x}; // y und x sind jetzt zwei Namen für die gleiche Variable
+y=-12;
+std::print("{}\n", x); // -12
+```
+
++ Sehr viel einfacher zu benutzen
++ Keine Dereferenzierung notwendig
+
+
+

@@ -1,0 +1,32 @@
+---
+title: "C++ Programmierkurs"
+subtitle: "Übung Do, 13. Februar"
+author: "Justin Schmitz und Prof. Dr. David Luitz (Universität Bonn)"
+---
+
+# Einleitung (Do, 13. Feb)
+
++ Einrichten von Programmierumgebung (Windows-> WSL)
+    - Texteditor (neovim, emacs, kate, vscode)
+    - `git`
+    - GCC mindestens in Version 14
+    - Clang mindestens in Version 19.1.7
+    - Cmake und Make
++ Erstellung eines Gitlab Accounts (login auf [gitlab.uni-bonn.de](gitlab.uni-bonn.de) mit Uni-ID) 
+    - klonen des Vorlesungsrepositorys
+
++ Experimentieren mit git 
+    - Erstellen eines neuen Repository (lokal!)
+    - Dateien hinzufügen, neue commits hinzufügen
+    - `git log`
+    - `git branch`
+    - Checkout einer vorherigen Version
+    - `git diff --color-words`
+
+
++ Compile und Run eines Hello World Programm
+    - `g++ -o hello hello.cc`
+    - Benutzung von CMake, out-of-source build
++ Compile der Vorlesungs-Beispielcodes
+
+

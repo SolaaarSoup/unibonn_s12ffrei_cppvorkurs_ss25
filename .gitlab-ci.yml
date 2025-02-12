@@ -1,0 +1,25 @@
+
+variables:
+  UBUNTU_VERSION: "latest"
+  QUARTO_VERSION: "1.6.40"
+
+image: ubuntu:${UBUNTU_VERSION}
+
+before_script:
+  - apt-get update && apt-get -y install curl && apt-get -y install make
+  - curl -L -o ./quarto.deb https://github.com/quarto-dev/quarto-cli/releases/download/v1.6.40/quarto-1.6.40-linux-arm64.deb
+  - dpkg -i ./quarto.deb && rm -f ./quarto.deb
+
+
+
+deploy-pages:
+  pages: true
+  script:
+    - cd lectures && make all 
+    - cd ..
+    - cd exercises && make all
+  artifacts:
+    paths:
+      - public/
+  only:
+    - master

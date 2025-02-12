@@ -1,0 +1,20 @@
+lang: de
+language:
+  title-block-author-single: "Autor"
+format: 
+    revealjs:
+      slide-number: true
+      theme: [default, custom.scss]
+      logo: uni-bonn-logo.svg
+      embed-resources: false
+      self-contained-math: false
+      html-math-method: katex
+    html:
+      theme: [default, custom.scss]
+      logo: uni-bonn-logo.svg
+      embed-resources: false
+      self-contained-math: false 
+      html-math-method: katex
+format-links: false
+
+
