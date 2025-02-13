@@ -256,13 +256,14 @@ int main(void){
 }
 ```
 
-Zum Erstellen benötigen wir einen **Texteditor**.
+Zum Erstellen benötigen wir einen guten **Texteditor**.
 
 + Sehr gute Programme: [neovim](https://neovim.io/), [vim](https://www.vim.org/), [GNU Emacs](https://www.gnu.org/software/emacs/)
 + Im Prinzip geht auch `nano`, `kate`, `gedit`, oder `vscode`
 + Wichtige Features:
     - Mehrere Dateien gleichzeitig editieren
     - Syntax Highlighting
+    - Language Server [clangd](https://clangd.llvm.org/)
     - Code-Navigation (zB "*go to definition*")
     - ...
 
@@ -270,14 +271,14 @@ Zum Erstellen benötigen wir einen **Texteditor**.
 ## (Neo)Vim
 
 
-Empfehlun: Vim. (ähnliches gilt für Emacs)
+Empfehlung: Neovim. (ähnliches gilt für Emacs)
 
 Vorteile:
 
 + Auf jedem Unix-System (Großrechner!) verfügbar 
 + Funktioniert in jedem Terminal (insbesondere via SSH)
 + Seit Jahrzehnten optimiertes Tastaturinterface (so gut, dass sogar vscode es kopiert)
-    - Einstieg: `vimtutor`
+    - Einstieg: `vimtutor` (Fortgetschritten [Practical Vim](https://bonnus.ulb.uni-bonn.de/view/action/uresolver.do?operation=resolveService&package_service_id=17249008440006467&institutionId=6467&customerId=6440&VE=true))
     - Beenden mit `:q`
     - Modales editieren: `<ESC>` wechselt in den Normalmodus, `<i>` in den Einfügemodus
     - Cursor bewegen im Normalmodus mit `<j>`, `<k>`, `<h>`, `<l>`
