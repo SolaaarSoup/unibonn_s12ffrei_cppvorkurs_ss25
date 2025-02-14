@@ -16,7 +16,7 @@ author: "Prof. Dr. David Luitz (Universität Bonn)"
 
 [Skript (html)](html/02_grundlagen.html), [Folien](revealjs/02_grundlagen.html)
 
-<!-- [Übung](html/exercises/02_datatypes.html) -->
+[Übung](html/exercises/02_datatypes.html)
 
 
 # 03 Kontrollstrukturen
