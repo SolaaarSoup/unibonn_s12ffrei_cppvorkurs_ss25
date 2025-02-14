@@ -394,10 +394,27 @@ std::println("{}", s); // i=7, x=1.2315
 + Substrings: `substr(pos, count)` gibt `count` Zeichen ab `pos` zurück
 ```cpp
 std::string s {"Hallo Welt"};
-std::string s.substr(6,4);
+std::string s2 {s.substr(6,4)};
 std::println("{}",s2); // Welt
 ```
 + Achtung mit Umlauten! `ä` belegt **2 Bytes** (ausprobieren!)
+
+
+
+## `auto`
+
++ Seit `C++11`: automatische Typableitung
++ Mit `auto` kann man eine Variable definieren, wenn ihr Typ klar ist
++ Hier sind Literale sehr wichtig, um den richtigen Typ zu erhalten
+```cpp
+auto i {1}; // a ist vom Typ int
+auto d {1.0}; // d ist vom Typ double
+auto f {1.0f}; // f ist vom Typ float
+auto cstr {"Das ist ein C-String..."};
+using namespace std::literals::string_literals;
+auto cxxstr {"...und das ein C++ String"};
+```
++ Nützlich für komplizierte Typen von temporären Variable
 
 
 # Konstanten
@@ -430,7 +447,7 @@ Mathematische Konstanten sind im Header `<numbers>` definiert.
     - `std::numbers::pi_v<T>` 
     - `std::numbers::pi` = `std::numbers::pi_v<double>` 
 + `pi`: $\pi$
-+ `e`: $\pi$
++ `e`: $\mathrm{e}$ (Euler Konstante)
 + `ln2`: $\ln{2}$
 + `sqrt2`: $\sqrt{2}$
 + `sqrt3`: $\sqrt{3}$

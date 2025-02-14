@@ -16,6 +16,11 @@ int main(void){
     std::print("uint32_t: {}\n", std::numeric_limits<uint32_t>::max() );
     std::print("uint64_t: {}\n", std::numeric_limits<uint64_t>::max() );
 
-    uint32_t a {0};
+    uint32_t a {std::numeric_limits<uint32_t>::max()};
     std::print("{}\n", a);
+    a = a+1;
+    std::print("{}\n", a);
+
+
+
 }
