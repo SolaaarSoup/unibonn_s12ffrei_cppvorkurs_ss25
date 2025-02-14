@@ -10,4 +10,4 @@ author: "Justin Schmitz und Prof. Dr. David Luitz (Universität Bonn)"
 
 + Implementieren Sie nun Rechenaufgaben mit Gleitkommazahlen und Komplexen Zahlen 
 
-+ Erweitere die CMakeLists um die neuen Programme
++ Erweitere die CMakeLists um die neuen Programme. Erstellen Sie einen "build" Ordner neben dem Source Ordner. Gehen Sie nun in den "build" Ordner und führen sie aus "cmake ../source". Von da an, kompilieren Sie nun in "build" mit "make".
