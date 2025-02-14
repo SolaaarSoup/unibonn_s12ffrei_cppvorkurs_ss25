@@ -21,6 +21,10 @@ Das vollständige Repository für den Kurs finden Sie auf <https://gitlab.uni-bo
 
 Das Vorlesungsskript finden Sie [hier](https://physics441-sose25-c-vorkurs-8d9a23.gitlab-pages.uni-bonn.de/)
 
+## Docker/Apptainer Container
+
+Eine Anleitung zur Benutzung des Docker Containers für den Kurs finden Sie [hier](https://physics441-sose25-c-vorkurs-8d9a23.gitlab-pages.uni-bonn.de/) im Abschnitt "Container Image".
+
 ## Literatur
 
 (Volltexte über Login mit Uni-ID verfügbar. Bitte "Universitäts und Landesbibliothek Bonn" als Institution auf der O'Reilly Bibliotheksseite wählen)

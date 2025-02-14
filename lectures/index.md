@@ -22,6 +22,34 @@ author: "Prof. Dr. David Luitz (Universität Bonn)"
 # 03 Kontrollstrukturen
 
 
+
+
+
+## Container Image
+
+Um einen einfachen Zugang zu aktuellen Compilern zu gewährleisten, bieten wir einen Docker Container mit aktuellem CMake und Clang 19 an. Um Ihn zu nutzen, führen Sie bitte folgende Schritte aus:
+
++ Installieren Sie [apptainer](https://apptainer.org/docs/admin/main/installation.html) oder Docker (die Anleitung erklärt im folgenden nur Apptainer)
+    - auf dem CIP Pool ist apptainer bereits installiert, zur einfacheren Benutzung setzen Sie dazu bitte `export PATH=/cvmfs/atlas.cern.ch/repo/containers/sw/apptainer/x86_64-el7/1.3.4/bin/:$PATH`. Diesen Befehl am besten in die `.bashrc` schreiben.
+    - geben Sie jetzt `apptainer` auf der Kommandozeile ein. Es sollte ein kurzer Hilfetext erscheinen, der die verfügbaren Befehle auflistet
++ Als nächstes legen Sie auf <https://gitlab.uni-bonn.de/grp_teaching-public/physics441-sose25-c-vorkurs> ein Access-Token an. Klicken Sie dazu im Menü links auf `Settings/Access Tokens` und dort auf `Add new token`. Sie können einen Namen und ein Ablaufdatum festlegen, wichtig ist, dass Sie bei "Select scopes" die Haken auf `read registry` und `read repository` setzen und danach auf `Create project access token` klicken. Speichern Sie das Token (sichtbar durch Klick auf das Auge-Symbol). Wir werden den Token-Code im Folgenden als $TOKEN und Ihre Uni-ID als $USER bezeichnen. Bitte ersetzen Sie in den folgenden Befehlen diese Variablen durch die entsprechenden Angaben.
++ Wechseln Sie jetzt in ein Verzeichnis, in das Sie das Gitlab Repository für den Kurs clonen möchten:
+```bash
+mkdir -p $HOME/c++_vorkurs/
+cd $HOME/c++_vorkurs/
+```
++ Jetzt können Sie den Container mit folgenden Schritten herunterladen:
+```bash 
+apptainer registry login -u $USER -p $TOKEN docker://registry.gitlab.uni-bonn.de:5050
+apptainer pull docker://registry.gitlab.uni-bonn.de:5050/grp_teaching-public/physics441-sose25-c-vorkurs
+apptainer run docker://registry.gitlab.uni-bonn.de:5050/grp_teaching-public/physics441-sose25-c-vorkurs
+```
+Das erstellen des Containers dauert ein wenig, aber im Anschluss haben Sie eine Arbeitsumgebung mit aktuellem `clang++`. Es sollte eine `.sif` erstellt werden, die Sie für zukünftige Aufrufe von Apptainer nutzen können: `apptainer run physics441-sose25-c-vorkurs_latest.sif`.
++ Im Container können Sie zum Beispiel `git clone` ausführen und dann die Beispielcodes kompilieren. Bitte beachten Sie, dass noch nicht alle Makefiles auf `clang++` umgestellt sind. Sie können den Compileraufruf von `g++` durch `clang++ --std=c++23 --stdlib=libc++ -o hello hello.cc` ersetzen.
+
+
+
+
 ## Tutoren
 
 + Justin Schmitz [<s6jtscmi@uni-bonn.de>](mailto:s6jtscmi@uni-bonn.de)  
