@@ -1,0 +1,13 @@
+---
+title: "C++ Programmierkurs"
+subtitle: "Übung FR, 14. Februar"
+author: "Justin Schmitz und Prof. Dr. David Luitz (Universität Bonn)"
+---
+# Übungsaufgaben
++ Machen Sie sich mit den ganzzahligen Datentypen vertraut. Betrachten Sie dafür die Datei "overflow.cpp".
+
++ Als nächstes implementieren Sie einfache Rechenoperationen mit ganzenzahlen 
+
++ Implementieren Sie nun Rechenaufgaben mit Gleitkommazahlen und Komplexen Zahlen 
+
++ Erweitere die CMakeLists um die neuen Programme. Erstellen Sie einen "build" Ordner neben dem Source Ordner. Gehen Sie nun in den "build" Ordner und führen sie aus "cmake ../source". Von da an, kompilieren Sie nun in "build" mit "make".
