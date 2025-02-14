@@ -1,0 +1,13 @@
+---
+title: "C++ Programmierkurs"
+subtitle: "Übung FR, 14. Februar"
+author: "Justin Schmitz und Prof. Dr. David Luitz (Universität Bonn)"
+---
+# Übungsaufgaben
++ Machen Sie sich mit den ganzzahligen Datentypen vertraut. Betrachten Sie dafür die Datei "overflow.cpp".
+
++ Als nächstes implementieren Sie einfache Rechenoperationen mit ganzenzahlen 
+
++ Implementieren Sie nun Rechenaufgaben mit Gleitkommazahlen und Komplexen Zahlen 
+
++ Erweitere die CMakeLists um die neuen Programme
