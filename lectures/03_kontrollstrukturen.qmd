@@ -362,6 +362,7 @@ dateiausgabe << 1.2 << ", " << 0.4 << "\n";
 dateiausgabe << 1.4 << ", " << -2.0e-1 << "\n";
 dateiausgabe.close();
 ```
+Demo: `code/25_files/fstream.cc`
 
 ## Dateimodi
 
