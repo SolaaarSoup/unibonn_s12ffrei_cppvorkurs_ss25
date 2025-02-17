@@ -1,0 +1,41 @@
+---
+title: "C++ Programmierkurs"
+subtitle: "Übung MO, 17. Februar"
+author: "Justin Schmitz und Prof. Dr. David Luitz (Universität Bonn)"
+---
+Heute beschäftigen wir uns mit dem Kontrollfluss in C++. Ihr findet fünf Aufgaben im Ordner source.
+
+Bevor ihr mit den Aufgaben startet, solltet ihr euch mit Git vertraut machen. Kopiert dazu den gesamten Ordner inklusive des source-Ordners und erstellt ein neues Repository. Folgt dabei diesen Schritten:
+
+Terminal öffnen: Wechselt in das Verzeichnis, das ihr kopiert habt.
+Git-Repository initialisieren:
+git init
+
+Alle Dateien hinzufügen:
+git add .
+
+Ersten Commit erstellen:
+git commit -m "Initial commit"
+
+Remote-Repository erstellen: Legt auf GitHub, GitLab o.ä. ein neues Repository an.
+
+Remote-Repository verknüpfen:
+git remote add origin <repository-url>
+
+Ersten Push durchführen:
+git push -u origin master
+
+Erstellt außerdem, wie bereits am zweiten Kurstag, einen build-Ordner und eine neue CMakeLists.txt-Datei.
+
+Bearbeitet nun die fünf Aufgaben in folgender Reihenfolge: Vergleich, Multitabelle, prim, wurzel und taschenrechner.
+
+Wichtig: Nach Abschluss jeder Aufgabe solltet ihr eure CMakeLists.txt anpassen und den aktuellen Stand in euer Repository hochladen. Verwendet dazu folgende Befehle:
+
+Änderungen hinzufügen:
+git add .
+
+Commit erstellen (ersetze <Beschreibung> durch eine aussagekräftige Nachricht):
+git commit -m "<Beschreibung>"
+
+Änderungen pushen:
+git push
