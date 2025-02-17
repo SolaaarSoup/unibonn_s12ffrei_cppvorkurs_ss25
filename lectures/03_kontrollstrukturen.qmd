@@ -1,0 +1,407 @@
+---
+title: "C++ Programmierkurs"
+subtitle: "Kontrollstrukturen und I/O"
+author: "Prof. Dr. David Luitz (Universität Bonn)"
+---
+
+# Tests
+
+## Bedingte Ausführung: `if`
+
+Ausführung von Code abhängig von Bedingung: 
+```cpp
+if (bedingung)
+    // falls bedingung==true
+else 
+   // falls bedingung==false
+```
+
++ `bedingung` ist ein boolscher Ausdruck
++ Mehr als eine Anweisung: Code Block
+```cpp
+int a {0};
+// do something with a
+if(a%2==0){ // vergleich liefert bool
+    std::println("a ist gerade");
+} else {
+    std::println("a ist ungerade");
+}
+```
+
+## Bedingte Ausführung
+
++ `if` kann optional mit einer Initialisierungsliste erweitert werden
++ `if(init; bedingung)`, `init` ist ein Ausdruck, der vor der Prüfung der `bedingung` ausgeführt wird
++ Warum? Erlaubt lokale Variable.
++ `else` ist optional, braucht man nicht immer
+```cpp
+std::string s {"Teststring"};
+
+if(char c {s[3]}; c=='t'){
+    std::println("s[3]==c");
+}
+```
+Demo: `code/20_if_switch/`
+
+
+## `switch`
+
++ Mehrere Fälle sind etwas mühsam mit `if` statements.
+```cpp
+int a {0}; //...
+switch(a){
+    case 0: 
+        std::println("a==0"); break;
+    case 1:
+        std::println("a==1"); break;
+    case -1:
+        std::println("a=-1"); break;
+    default:
+        std::println("a not in \{0,1,-1\}"); break;
+}
+```
++ Achtung: Jeder Fall muss mit `break;` beendet werden, sonst geht es mit dem nächsten Fall weiter.
++ Typisches Beispiel: Reaktion auf Tastaturbefehle
+
+
+## `switch`: `default`
+
++ `default`: Standardfall, der nicht anders abgefangen wurde
++ Weglassen, wenn explizit alle Möglichkeiten abgefragt wurden (`enums`), so kann Compiler eine Warnung genereren, falls etwas fehlt
+
++ Vollständige Referenz: <https://en.cppreference.com/w/cpp/language/switch>
+
+
+# Iteration
+
+## `while`
+
++ Wiederholschleife über einen Codeblock
++ `while (bedingung) { code }`: Wiederhole `code` so lange, bis `bedingung==false` 
++ Achtung, unendliche Schleifen möglich!
+
+```cpp
+int a {0};
+while(a<10)
+{
+   a++;  
+}
+std::print("a={}\n", a); // a=10
+```
++ Vor jeder Wiederholung wird die Bedingung erneut geprüft
+
+
+## `while`: `break`
+
++ Schleife kann vorzeitig abgebrochen werden mit `break`
++ Erlaubt prüfen weiterer Bedingungen
+
+```cpp
+int a {0};
+int limit {10};
+
+while(a<limit)
+{
+    if(a>7) break;
+    a++;  
+}
+std::print("a={}\n", a); // a=8
+```
+
+Demo: `code/21_while/`
+
+
+## `for`
+
++ Der wohl häufigste Fall: Anzahl Iterationen vorhersagbar
++ `for(init_statement; condition; expression){code}`
++ `init_statement`: Ausführung vor Beginn. Lookale Variable möglich
++ `condition`: Boolscher Ausdruck
++ `expression`: Wird in jeder Iteration ausgeführt
+```cpp
+for(int idx {0}; idx<N; idx++){
+    std::print("{}", idx);
+    
+    // Komma nach jeder Zahl, "." und \n am Ende
+    if(idx<(N-1)) 
+        std::print(", ");
+    else
+        std::print(".\n");
+}
+```
+
+## Range-based `for`
+
++ `C++11` brachte range-based for loops
++ Automatische Iteration über Element einer Sequenz
+```cpp
+for(char c: {'a','b','c','d'}){
+        std::print("Zeichen: {}\n", c);
+    }
+```
++ Sehr nützlich für Iteration über Elemente von Containern:
+```cpp
+std::vector<int> vec {1,2,3,4};
+    for(auto element: vec){
+        std::print("Element: {}\n", element);
+    }
+```
+
+Demo: `code/22_for/` 
+
+
+
+## `break`
+
++ Bereits bei `switch` gesehen
++ `break` bricht Schleife ab
++ Beispiel: Reagieren auf Sonderfälle
+```cpp
+int N {-5};
+for(int i=4; i>N; i--) {
+    if(i<0) break; // springe aus der Schleife, falls i<0
+    std::print("i={}\n", i);
+}
+```
+
+
+
+## `continue`
+
++ `continue` erlaubt das Überspringen einer Iteration
++ lässt den Rest des Schleifenkörpers aus und springt in die nächste Iteration
+```cpp
+for(int i=1; i<=20; i++){
+    if(i==13) continue;
+    std::print("Zimmer {}\n", i);
+}
+```
+
+
+
+# Eingabe und Ausgabe
+
+## `std::print` und `std::format`
+
++ `std::print(string, args...)` gibt `string`, auf der Standardausgabe aus
++ `std::format` formatiert `string` und fügt die Argumente ein
+```cpp
+auto pi { std::numbers::pi_v<double> };
+std::string str {std::format("pi = {:25.18f}", pi)}; // breite 25, Präzision 18
+```
++ Format: `{fill-and-align sign # 0 width  precision L type}` [docs](https://en.cppreference.com/w/cpp/utility/format/spec)
+    - `fill-and-align`: Füllzeichen+`<`,`^`,`>`
+    - `sign`: `+` (immer mit Vorzeichen), `0`: führende Nullen
+    -  `#`: `0b`, `0x` etc einfügen
+    - `width`: Feldbreite
+    - `precision`: `.10`: 10 Ziffern nach dem Komma
+    - `type`: `b` (binär), `x` (hexadezimal), `f`: (float), `e`: (scientific)
+
+Demo: `code/23_format/`
+
+
+## Streams
+
++ Unix-Shell: Standard Datenströme `stdin`, `stdout`, `stderr`
++ Um- und Weiterleitung: `ls | sort > dateien.txt`
++ In `C++` mit `streams` umgesetzt:
+    - `std::cout`: Standardausgabe
+    - `std::cerr`: Standardfehler
+    - `std::cin`: Standardeingabe
+```cpp
+#include <iostream>
+int main(){
+    std::cout << "a=" << 12 << std::format(" b= {:.10f}",3.2) << "\n";
+}
+```
++ Beliebig erweiterbar (`operator<<` für eigene Typen)
++ Kombinierbar mit `std::format`
+
+
+## `<iostream>`
+
++ Ausgabe gepuffert
++ Puffer leeren mit `std::flush`
++ Neue Zeile und Puffer leeren mit `std::endl`
+```cpp
+std::cout << "Hallo " << std::flush << "Welt" << std::endl;
+```
++ Formatierungsmodi nicht mehr zwingend erforderlich, `std::format` nutzen
+
+Demo: `code/24_streams/output-stream.cc`
+
+
+## Eingabe mit `std::cin`
+
++ Das Object `std::cin` stellt die Standardeingabe zur Verfügung
++ Benutzen mit dem `>>` Operator
++ Automatische Typumwandlung
+```cpp
+char c {};
+std::cin >> c; // Eingabe: 'a' -> c
+double x {0};
+std::cin >> x;  // Eingabe: 1.241e4 -> x
+std::string s{};
+std::cin >> s; // Liest das erste Wort (bis Leerzeichen) ein
+```
++ Verhalten bei Fehlern: Illegale Eingabe setzt den Stream ungültig `std::cin.bad()==true`
++ Testen auf Gültigkeit
+```cpp
+if(std::cin) std::cin >> c;
+if(std::cin.good()) std::cin >> c;
+```
+
+
+## Fehlerbehandlung bei Eingabe
+
++ Nach fehlerhafter Eingabe ist `std::cin.bad()==true`
++ Alle weiteren Eingaben schlagen fehl, `std::cin >> x;` macht nichts
++ Wiederherstellen des Betriebszustands:
+```cpp
+std::cin.clear(); // Setze std::cin.good()==true
+```
++ Die fehlerhafte Eingabe ist aber noch im Stream gespeichert!
++ Löschen mit `ignore(int count, char delim)`:
+```cpp
+std::cin.ignore(1000, '\n'); // Lösche max 1000 Zeichen bis entweder Ende oder `\n`
+
+#include<limits>
+std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Lösche bis Ende oder `\n`
+```
+
++ Dokumentation: <https://en.cppreference.com/w/cpp/io/basic_istream>
+
+Demo in `code/24_streams/`: `input.cc`, und `input_sum.cc`
+
+
+## Namensräume
+
++ Bibliotheken wie zB [`boost`](https://www.boost.org/) stellen oft *sehr viele* Namen zur Verfügung.
++ Vermeidung von Kollisionen mit Nutzer-Code (one definition rule ODR): **Namensräume** (namespaces)
+
+```cpp
+namespace mein_namensraum {
+    const float pi {3.141592};
+    namespace intern {
+        const int answer {42};
+    }
+}
+std::cout << pi; // Fehler: pi nicht definiert
+std::cout << mein_namensraum::pi; // Ok
+std::cout << mein_namensraum::intern::answer; // Ok
+```
++ Namensräume können global importiert werden mit `using namespace mein_namensraum`
+```cpp
+namespace m = mein_namensraum; // Alias
+namespace mi = mein_namensraum::intern; // noch ein Alias
+std::cout << mi::answer; // OK
+```
+
+
+
+## Dateisystem
+
++ Um Daten permanent zu speichern, oder größere Eingaben reproduzierbar durchzuführen, können wir direkt aus Dateien lesen oder in sie schreiben
++ Zugriff auf das Dateisystem: `<filesystem>` ([doc](https://en.cppreference.com/w/cpp/filesystem))
++ Typ für Pfade: `std::filesystem::path`
++ Aktuelles Verzeichnis: `std::filesystem::current_path()`
+```cpp
+#include <filesystem>
+#include <iostream>
+using namespace std::filesystem;
+int main(){
+    path aktuelles_verzeichnis {current_path()};
+    std::cout << "Aktuelles Verzeichnis: " << aktuelles_verzeichnis << std::endl;
+}
+```
+
+
+## Neues Verzeichnis erstellen
+
++ Erstellen eines neuen Verzeichnis: `std::filesystem::create_directory(path)`
++ `std::filesystem::current_path(path)` wechselt nach `path`
+```cpp
+std::filesystem::path tmp_dir {"tmp/"};
+std::filesystem::create_directory(tmp_dir); // Verzeichnis erstellen
+std::filesystem::current_path(tmp_dir); // In Verzeichnis wechseln
+std::filesystem::path cwd {std::filesystem::current_path()};
+std::cout << "Aktuelles Verzeichnis: " << cwd << std::endl;
+```
++ `create_directory` wirft keinen Fehler, falls Verzeichnis existiert
++ Kopiere Datei: `std::filesystem::copy_file(path from, path to)`
++ Kopiere Verzeichnis: `std::filesystem::copy(path from, path to)`
+
+
+## Dateien auflisten
+
++ Sehr einfaches Iterieren über Verzeichnisinhalt mit `directory_iterator`
+```cpp
+std::filesystem::path cwd {std::filesystem::current_directory()};
+
+for(auto & entry: std::filesystem::directory_iterator(cwd)){
+    std::cout << entry.path().filename() << std::endl; // nur basename
+}
+```
++ `entry` ist dabei eine Referenz auf Variable vom Typ `directory_entry`
++ Typ wird mit `auto &` abgeleitet. `auto` (ohne `&`) würde Kopie erstellen
+
+Demo: `code/25_files/filesystem.cc`
+
+## Ausgabestrom in Datei
+
++ Spezielle Ausgabeströme für Dateien `<fstream>`
++ Anlegen als Variable vom Typ `std::ofstream` 
+```cpp
+std::path filename {std::filesystem::current_path / "ausgabe.dat"}; // OS unabhängig!
+std::ofstream dateiausgabe(filename);
+```
++ `dateiausgabe` funktioniert jetzt exakt wie `std::cout`
+```cpp
+dateiausgabe << 1.0 << ", " << 2.0 << "\n";
+dateiausgabe << 1.2 << ", " << 0.4 << "\n";
+dateiausgabe << 1.4 << ", " << -2.0e-1 << "\n";
+dateiausgabe.close();
+```
+
+## Dateimodi
+
++ Dateien können in verschiedenen Modi geöffnet werden [docs](https://en.cppreference.com/w/cpp/io/ios_base/openmode), z.B.
+    - `std::ios::app`: Am Ende anhängen
+    - `std::ios::trunc`: Dateiinhalt ersetzen
+    - `std::ios::binary`: Binärformat
+```cpp
+std::ofstream(filename, std::ios::app);
+```
+
++ Eingabe funktioniert wie `std::cin`:
+```cpp
+std::ifstream eingabe(filename);
+double x {0.0};
+eingabe >> x;
+```
++ Ganze Zeile lesen:
+```cpp
+std::string zeile {};
+std::getline(eingabe, zeile);
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
