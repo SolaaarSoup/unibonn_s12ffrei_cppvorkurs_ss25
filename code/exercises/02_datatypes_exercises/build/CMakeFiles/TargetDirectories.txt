@@ -1,0 +1,5 @@
+/home/ffre/physics441-sose25-c-vorkurs/code/exercises/02_datatypes_exercises/build/CMakeFiles/overflow.dir
+/home/ffre/physics441-sose25-c-vorkurs/code/exercises/02_datatypes_exercises/build/CMakeFiles/integer.dir
+/home/ffre/physics441-sose25-c-vorkurs/code/exercises/02_datatypes_exercises/build/CMakeFiles/float.dir
+/home/ffre/physics441-sose25-c-vorkurs/code/exercises/02_datatypes_exercises/build/CMakeFiles/edit_cache.dir
+/home/ffre/physics441-sose25-c-vorkurs/code/exercises/02_datatypes_exercises/build/CMakeFiles/rebuild_cache.dir
