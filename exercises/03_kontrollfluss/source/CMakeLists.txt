@@ -1,0 +1,5 @@
+add_executable(multitabelle multitabelle.cpp)
+add_executable(prim prim.cpp)
+add_executable(taschenrechner taschenrechner.cpp)
+add_executable(vergleich vergleich.cpp)
+add_executable(wurzel wurzel.cpp)
