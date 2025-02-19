@@ -1,0 +1,16 @@
+---
+title: "C++ Programmierkurs"
+subtitle: "Übung DI, 18. Februar"
+author: "Justin Schmitz und Prof. Dr. David Luitz (Universität Bonn)"
+---
++ Heute beschäftigen wir uns mit dem Funktionen in C++. Ihr findet drei Aufgaben im Ordner source.
+
+# Einführung eigenes Repository
+Nachdem es gestern Probleme gab, wieden wir uns heute wieder dem erstellen eines eigenen Repository.
+Dazu geben wir nochmal eine Wiederholung zu Beginn des Tutoriums im CIP-Pool.
+
+# Aufgabenstellung
++ Bearbeiten Sie die Aufgaben in der folgenden Reihenfolge: math und csv.
++ Ändern Sie Ihren Taschenrechner so um, dass die Rechenoperation aus der Datei "input/math.txt kommen".
++ Laden Sie jede fertige Aufgabe in Ihr Repository hoch
++ Überarbeiten Sie auch Ihre CMakeLists

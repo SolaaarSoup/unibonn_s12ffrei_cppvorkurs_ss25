@@ -15,7 +15,7 @@ Der Taschenrechner soll so lange laufen, bis der Taschenrechner beendet wird.
 
 
 int main(){
-    while(true){
+    while(true){cd
     double x {0.0};
     double y {0.0};
     int arg {0};

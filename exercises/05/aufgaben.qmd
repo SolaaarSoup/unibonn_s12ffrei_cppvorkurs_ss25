@@ -1,0 +1,21 @@
+---
+title: "C++ Programmierkurs"
+subtitle: "Übung DI, 18. Februar"
+author: "Justin Schmitz und Prof. Dr. David Luitz (Universität Bonn)"
+---
+# Aufgabe 1
++ Betrachten Sie das Programm "overload.cpp". Wie der Name es schon vorschlägt, beschäftigen wir uns hier mit Funktionen-Overload.
+
+# Aufgabe 2
++ Die nächste Aufgabe ist "in_out.cpp". Implementieren Sie zwei rekursive Funktionen. 
++ Desweiteren lesen Sie die Datei "input.txt" ein. Diese soll als Eingaben sein.
++ Geben Sie die Eingaben, sowie die Ergebnisse aus in einer csv Datei.
+
+
+# Aufgabe 3
++ Gegeben sind zwei Funktionen, welche wir Integrieren wollen. Die erste ist nur zum Überprüfen Ihres Codes, während die zweite unsere gewünschte Funktion.
++ Implementieren Sie zunächst zum Lösen des Integrals die Trapezregel.
++ Implementieren Sie die auch noch die Simpsonregel
++ Bonus: Implementieren Sie nun auch noch die Adaptive Integration.
+
+
