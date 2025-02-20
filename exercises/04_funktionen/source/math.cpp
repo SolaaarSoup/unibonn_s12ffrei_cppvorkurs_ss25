@@ -2,20 +2,38 @@
 
 //Schreiben Sie eine Funktion welche die Summe zweier Ints berechnet
 
+int add(int n1, int n2) {
+    return n1+ n2;
+}
 
 //Schreiben Sie eine Funktion, welche die Diffrenz von zwei Ints berechnet.
+
+int sub(int n1, int n2) {
+    return n1 - n2;
+}
 
 
 //Schreiben Sie eine Funktion, welche das Produkt von zwei Ints berechnet.
 
+int mult(int n1, int n2) {
+    return n1 * n2;
+}
+
 
 //Schreiben Sie eine Funktion, welche die Potenz berechnet.
 
+int pot(int n, int order) {
+    return std:pow(n, order);
+    }
 
 //Schreiben Sie eine Funktion, welche die Wurzel eines Ints bestimmt.
 
+int sqrt(int n){
+    return std::sqrt(n);
+}
 
 //Schreiben Sie eine Funktion, welche den Betrag eines Ints bestimmen.
+
 
 
 //Schreiben Sie eine Funktion, welche die Faklutät eines Ints bestimmt.
