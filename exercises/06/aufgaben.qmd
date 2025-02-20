@@ -1,0 +1,24 @@
+---
+title: "C++ Programmierkurs"
+subtitle: "Übung DO, 20. Februar"
+author: "Justin Schmitz und Prof. Dr. David Luitz (Universität Bonn)"
+---
++ Die heutige Aufgabe besteht aus Zwei großen Teilen.
+
+# Erster Teil: CMake und Header
+Bisher haben wir immer eine CMake File zum Kompilieren benutzt, obwohl es nicht wirklich notwendig war.
+Dies war dafür da, dass Sie von Beginn an die Nutzung gewöhnt werden.
+Aber CMake kann noch mehr als wir bisher genutzt haben.
++ Machen Sie sich mit der gegebenen CMakeLists vertraut und versuchen Sie die neuen Inhalte zu Verstehen. Arbeiten Sie gerne mit anderen zusammen und Fragen Sie auch die Tutoren.
+
+Im nächsten Schritt machen schreiben Sie nun Ihre erste eigene Headerfile.
++ Schreiben Sie nun eine eigene Headerfile. Diese soll zwei Funktionen beinhalten. Beide sollen für einen Int das doppelte bestimmen. Implementieren Sie die Funktionen einmal mit Call-by-Value und einmal mit Call-by-Reference
++ Schreiben Sie ein Programm welches Funktionen aus Ihrer neuen Headerfile nutzt und aus der simple_math.h.
++ Ändern Sie nun die CMakeLists, sodass die neuen Dateien eingebaut werden.
+
+# Zweiter Teil: Unit Tests
+Im zweiten Teil der heutigen Übung betrachten wir Unittests. Gehen Sie dafür in den Ordner "unittest".
++ Betrachten Sie die Funktionen, welche in der "include/polynomial.h" beschrieben werden.
++ Schreiben Sie für alle 3 Funktionen Tests.
++ Ändern Sie nun auch die CMakeLists, um die Test zu generieren.
++ Wenn die Funktionen nicht so arbeiten wie gewünscht: Finden Sie den Fehler.
