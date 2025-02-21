@@ -1,0 +1,8 @@
+/home/ffre/unibonn_s12ffrei_cppvorkurs_ss25/exercises/06/header-cmake/build/CMakeFiles/simple_math.dir
+/home/ffre/unibonn_s12ffrei_cppvorkurs_ss25/exercises/06/header-cmake/build/CMakeFiles/double_int.dir
+/home/ffre/unibonn_s12ffrei_cppvorkurs_ss25/exercises/06/header-cmake/build/CMakeFiles/prog1.dir
+/home/ffre/unibonn_s12ffrei_cppvorkurs_ss25/exercises/06/header-cmake/build/CMakeFiles/prog2.dir
+/home/ffre/unibonn_s12ffrei_cppvorkurs_ss25/exercises/06/header-cmake/build/CMakeFiles/prog3.dir
+/home/ffre/unibonn_s12ffrei_cppvorkurs_ss25/exercises/06/header-cmake/build/CMakeFiles/prog4.dir
+/home/ffre/unibonn_s12ffrei_cppvorkurs_ss25/exercises/06/header-cmake/build/CMakeFiles/edit_cache.dir
+/home/ffre/unibonn_s12ffrei_cppvorkurs_ss25/exercises/06/header-cmake/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsimple_math.a CMakeFiles/simple_math.dir/simple_math.cpp.o
+/usr/bin/ranlib libsimple_math.a

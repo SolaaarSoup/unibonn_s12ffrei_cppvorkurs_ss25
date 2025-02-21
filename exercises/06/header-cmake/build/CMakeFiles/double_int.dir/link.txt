@@ -1,0 +1,2 @@
+/usr/bin/ar qc libdouble_int.a CMakeFiles/double_int.dir/double_int.cpp.o
+/usr/bin/ranlib libdouble_int.a

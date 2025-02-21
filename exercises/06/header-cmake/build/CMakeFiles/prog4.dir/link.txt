@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/prog4.dir/link.d CMakeFiles/prog4.dir/prog4.cpp.o -o prog4  libsimple_math.a libdouble_int.a
