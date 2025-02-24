@@ -17,5 +17,3 @@ author: "Justin Schmitz und Prof. Dr. David Luitz (Universität Bonn)"
 + Implementieren Sie zunächst zum Lösen des Integrals die Trapezregel.
 + Implementieren Sie die auch noch die Simpsonregel
 + Bonus: Implementieren Sie nun auch noch die Adaptive Integration.
-
-

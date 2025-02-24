@@ -1,0 +1,75 @@
+Git Guide: Gemeinsames Arbeiten am Main Branch und Merge-Konflikte lösen
+------------------------------------------------------------------------
+
+1. Repository klonen:
+   ---------------------
+   Klone das Repository und wechsle in das Projektverzeichnis:
+   
+       git clone <repository_url>
+       cd PhysikSim
+
+2. Arbeiten auf dem Main Branch:
+   -------------------------------
+   Alle Änderungen erfolgen direkt auf dem Main Branch.
+   
+   Vor Beginn jeder Arbeit solltest du den aktuellen Stand holen:
+   
+       git pull origin main
+
+3. Änderungen vornehmen und committen:
+   --------------------------------------
+   Nimm deine Änderungen vor und füge die geänderten Dateien dem Commit hinzu:
+   
+       git add .
+       git commit -m "Beschreibung der vorgenommenen Änderungen"
+
+4. Änderungen pushen:
+   --------------------
+   Pushe deine Commits in das zentrale Repository:
+   
+       git push origin main
+
+5. Merge-Konflikte lösen:
+   ------------------------
+   Wenn während des Pushs die Meldung erscheint, dass der Main Branch aktualisiert wurde, gehe wie folgt vor:
+   
+   a) Hole die neuesten Änderungen vom Remote-Repository:
+   
+          git pull origin main
+          
+      Hierbei wird ein Merge gestartet.
+   
+   b) Falls Merge-Konflikte auftreten, zeigt Git die betroffenen Dateien an.
+   
+   c) Öffne diese Dateien in deinem Editor. Konfliktbereiche sind durch Marker wie:
+   
+          <<<<<<< HEAD
+          (Deine Änderungen)
+          =======
+          (Remote-Änderungen)
+          >>>>>>> branch-name
+          
+      markiert. Entscheide, welche Änderungen übernommen werden sollen – oder kombiniere beide Varianten – und entferne die Konfliktmarker.
+   
+   d) Nachdem du die Konflikte behoben hast, füge die korrigierten Dateien dem Commit hinzu:
+   
+          git add <Dateiname>
+   
+   e) Committe den Merge:
+   
+          git commit -m "Merge-Konflikte behoben"
+   
+   f) Pushe anschließend deine Änderungen:
+   
+          git push origin main
+
+6. Einrichtung einer .gitignore:
+   --------------------------------
+   Damit der Build-Ordner nicht von Git versioniert wird, erstelle im Stammverzeichnis des Projekts eine Datei namens **.gitignore** und füge folgende Zeile ein:
+   
+          build/
+   
+   Diese Anweisung sorgt dafür, dass der Inhalt des Build-Ordners ignoriert und nicht in das Repository aufgenommen wird.
+
+------------------------------------------------------------------------
+Dieser Guide unterstützt euch dabei, auch beim Arbeiten auf dem Main Branch Merge-Konflikte zu bewältigen und euer Repository sauber zu halten.

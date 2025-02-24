@@ -1,0 +1,22 @@
+---
+title: "C++ Programmierkurs"
+subtitle: "Übung Mo, 24. Februar"
+author: "Justin Schmitz und Prof. Dr. David Luitz (Universität Bonn)"
+
+---
+
+Die heutige Aufgabe ist wieder zweiteilig.
+
+# Docker
+Zu Beginn beschäftigen wir uns mit Docker. Docker stellt sicher, dass Ihre Entwicklungsumgebung konsistent ist und unabhängig von den individuellen Einstellungen Ihres lokalen Systems funktioniert.
+
+Im Ordner **Docker** finden Sie alle wichtigen Dateien, wie das Dockerfile, die für den Aufbau der Umgebung erforderlich sind. Mit diesem Docker-Setup erhalten Sie eine lokale Umgebung, die alle notwendigen Werkzeuge beinhaltet, darunter einen C++ 23 Compiler.
+
++ Folgen Sie der Anleitung auf GitLab, um den Docker-Container zu starten.
++ Sollten Sie auf Probleme stoßen, konsultieren Sie bitte die Dokumentation im Ordner oder wenden Sie sich an Ihren Tutor.
+
+# Arrays
+Im nächsten Teil betrachten wir Vektoren und Arrays. 
+Dazu stehen Ihnen drei Aufgaben zur Verfügung:
++ Bearbeiten Sie die Programme in der Reihenfolge: Array, Vector und Sort.
+++ In **Sort** sollen (mindestens) einer der genannten Algorithmen implementiert und gebenchmarkt werden. Wer bis zum Ende des Tutoriums den schnellsten Benchmark vorweisen kann, bekommt einen Preis.

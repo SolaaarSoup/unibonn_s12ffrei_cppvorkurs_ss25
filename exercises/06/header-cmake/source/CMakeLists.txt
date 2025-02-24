@@ -17,15 +17,17 @@ set(INC_DIR "${CMAKE_SOURCE_DIR}/../include")
 # Die Bibliothek wird aus der Datei simple_math.cpp erstellt, die sich im source-Verzeichnis befindet.
 # ---
 add_library(simple_math STATIC ${SRC_DIR}/simple_math.cpp)
+add_library(double_int STATIC ${SRC_DIR}/double_int.cpp)
 
 # Füge das Include-Verzeichnis hinzu, damit alle Targets den Header simple_math.h finden.
 target_include_directories(simple_math PUBLIC ${INC_DIR})
+target_include_directories(double_int PUBLIC ${INC_DIR})
 
 # ---
 # Liste der Executable-Programme, die die simple_math-Bibliothek nutzen.
 # Hier werden drei Programme erwartet: prog1.cpp, prog2.cpp, prog3.cpp.
 # ---
-set(PROGRAMS prog1 prog2 prog3)
+set(PROGRAMS prog1 prog2 prog3 prog4)
 
 # ---
 # Durchlaufe die Liste der Programme und erstelle jeweils ein Executable,
@@ -37,4 +39,5 @@ foreach(prog IN LISTS PROGRAMS)
     add_executable(${prog} ${SRC_DIR}/${prog}.cpp)
     # Verlinke das Executable mit der simple_math-Bibliothek
     target_link_libraries(${prog} PRIVATE simple_math)
+    target_link_libraries(${prog} PRIVATE double_int)
 endforeach()

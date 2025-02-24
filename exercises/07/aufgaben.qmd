@@ -1,0 +1,27 @@
+---
+title: "C++ Programmierkurs"
+subtitle: "Übung Fr, 21. Februar"
+author: "Justin Schmitz und Prof. Dr. David Luitz (Universität Bonn)"
+---
+Heute beschäftigen wir uns mit der Simulation von Teilchen.
+Dazu dürfen Sie nun zu zweit an den Aufgaben arbeiten. 
++ Erstellen Sie zu zweit ein Repository, fügen Sie bearbeiter hinzu.
++ Machen Sich nun in Git mit Branches und Mergen vertraut
+
+Wenn Sie sich damit Vertraut gemacht haben, beginnen wir nun mit der Physik
++ Implementieren Sie eine Class "Vektor3D". 
+++ Implementieren Sie einen Konstruktor und Destrucktor
+++ Implementieren Sie die Vektoraddition
+++ Implementieren Sie ein Skalarprodukt
+++ Implementieren Sie ein Kreuzprodukt
+
++ Implementieren Sie eine Class "Teilchen"
+++ Ein Teilchen hat eine Masse, welche andere Teilchen nicht wissen.
+++ Ein Teilchen hat auch eine Position und eine Geschwindigkeit (Wir arbeiten in 3D)
+++ Implementieren Sie einen Konstruktor und Destrucktor
+++ Implementieren Sie eine Getter und Setter Funktion für die Masse
+++ Implementieren Sie einen Positionsupdate
+++ Implementieren Sie die Bestimmung des Impulsvektors.
+++ Implementieren Sie die Bestimmung der Kinetischen Energie
+
++ Schreiben Sie eine Main, welche ein Teilchen simuliert.
