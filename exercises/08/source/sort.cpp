@@ -75,6 +75,30 @@ Pseudocode zu verschiedenen Sortieralgorithmen:
 using namespace std;
 using namespace std::chrono;
 
+//Quicksort
+
+int partition(int A[], int low, int high){
+    int pivot = A[high];
+    int i = low -1;
+
+    for(int j=low; j<=high-1; j++){
+        if(A[j]<=pivot) {
+            i+=1;
+            std::swap(A[i], A[j]);
+        }
+    }
+    std::swap(A[i+1], A[high]);
+    return i + 1;
+}
+
+
+void quicksort(int A[], int low, int high){
+    if(low<high){
+        int pivotIndex = partition(A, low, high);
+        quicksort(A, low, pivotIndex-1);
+        quicksort(A, pivotIndex+1, high);
+    }
+}
 
 
 int main() {
@@ -84,7 +108,7 @@ int main() {
     Anschließend permutieren wir dies damit wir etwas zum sortieren haben
     Zum Testen können Sie ein kleineres Arry nehmen.
     */
-    const int n = 10000000; //Benchmarkgröße
+    const int n = 1000000; //Benchmarkgröße
     //const int n = 1000; //Testgröße
     
     // Array initialisieren (Werte 1 bis n)
@@ -103,6 +127,18 @@ int main() {
     Implementieren Sie (mindestens) einen davon und messen Sie die Laufzeit
     Die schnellste Laufzeit gewinnt einen Preis
     */
+
+    std::chrono::time_point t0 {std::chrono::system_clock::now()};
+
+    quicksort(arr, 0, n);
+
+    std::chrono::time_point t1 {std::chrono::system_clock::now()};
+    auto laufzeit=t1-t0;
+    std::cout << duration_cast<std::chrono::milliseconds>(laufzeit).count() << std::endl;
+
+    //for(int i=0; i<n ; i++){
+    //    std::cout << arr[i] << ", ";
+    //};
     
     // Hier ist noch ein Check, ob Ihr Verfahren Funktioniert
     if (is_sorted(arr, arr + n)) {

@@ -14,11 +14,11 @@ const int n = 10; // Anzahl der Elemente im Array
 
 void change_array(std::array<int, 10> &arr){
     for(int i {0}; i<n; i++){
-    if(arr[i]%2 == 0){
-        arr[i]*=2;
-    } else {
-        arr[i]++;
-    }
+        if(arr[i]%2 == 0){
+            arr[i]*=2;
+        } else {
+            arr[i]++;
+        }
     }
 
 }
